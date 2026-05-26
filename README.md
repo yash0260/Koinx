@@ -1,73 +1,111 @@
-# React + TypeScript + Vite
+# KoinX – Tax Loss Harvesting Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React + TypeScript application that replicates the Tax Loss Harvesting interface from the KoinX frontend assignment and implements real-time harvesting logic using mocked API responses.
 
-Currently, two official plugins are available:
+## Live Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Deployed App:** https://koinx-smoky.vercel.app/
+- **GitHub Repository:** https://github.com/yash0260/Koinx
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Pre-Harvesting and After-Harvesting capital gains cards.
+- Real-time recalculation of capital gains when holdings are selected or deselected.
+- Holdings table with checkbox selection and select-all behavior.
+- Amount to Sell column populated from selected holdings.
+- View All / Show Less functionality in the holdings table.
+- Loader state and error handling for mocked API calls.
+- Responsive layout for desktop and mobile screens.
+- Light and dark mode toggle.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Context API + useReducer
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Folder Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+src/
+├── components/
+│   ├── CapitalGainsCard.tsx
+│   ├── HoldingsTable.tsx
+│   ├── HowItWorks.tsx
+│   ├── InfoTooltip.tsx
+│   ├── Navbar.tsx
+│   └── SkeletonLoader.tsx
+├── context/
+│   └── HarvestingContext.tsx
+├── hooks/
+│   └── useHarvestedGains.ts
+├── services/
+│   └── mockApi.ts
+├── types/
+│   └── index.ts
+├── App.tsx
+├── main.tsx
+└── index.css
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Setup Instructions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Clone the repository
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <https://github.com/yash0260/Koinx>
+cd koinx
 ```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in the terminal, usually:
+
+```bash
+http://localhost:5173
+```
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+## Business Logic
+
+The app uses two mocked APIs as required by the assignment:
+
+1. **Holdings API** – returns the user holdings list.
+2. **Capital Gains API** – returns the pre-harvesting short-term and long-term profits/losses.
+
+When a holding is selected:
+
+- Positive short-term gain is added to short-term profits.
+- Negative short-term gain is added to short-term losses.
+- Positive long-term gain is added to long-term profits.
+- Negative long-term gain is added to long-term losses.
+- The After Harvesting card updates in real time.
+
+## Assumptions
+
+- Mock APIs are implemented using promises inside the React app, which is allowed in the assignment.
+- Currency values are displayed in INR format.
+- The UI follows the provided Figma and assignment demo as closely as possible.
+- A dark mode toggle was added as an extra UX enhancement.
+
+
+## Notes
+
+This project was built as part of the KoinX Frontend Intern assignment, which required a responsive React application, mocked APIs, real-time business logic updates, and deployment within the submission window.
